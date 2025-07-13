@@ -9,34 +9,38 @@ body {
 h1 {
   text-align: center;
   color: #4b3621;
+  margin-bottom: 30px;
 }
 
 .año {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  border-bottom: 2px solid #8b5e3c;
+  padding-bottom: 15px;
 }
 
 .semestre {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .semestre h3 {
   background-color: #8b5e3c;
   color: #fff;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 5px;
+  margin-bottom: 15px;
 }
 
 .ramo {
   background-color: #d2b48c;
   border: 2px solid #8b5e3c;
   border-radius: 5px;
-  margin: 10px 0;
-  padding: 10px;
+  margin: 8px 0;
+  padding: 10px 15px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity 0.3s ease;
 }
 
@@ -45,13 +49,22 @@ h1 {
   cursor: pointer;
 }
 
+.ramo.aprobado {
+  opacity: 1;
+  background-color: #b8976a;
+  text-decoration: line-through;
+  color: #3a2d21;
+}
+
 .ramo button {
   background-color: #4b3621;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 12px;
   border-radius: 3px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
 }
 
 .ramo button:disabled {
