@@ -1,108 +1,45 @@
 const STORAGE_KEY = "mallaAprobados";
-
-const malla = [ /* igual que antes: toda la malla curricular aquí */ ];
-
-// Guardamos el estado de ramos aprobados (id) como Set
 let aprobados = new Set();
 
-// Referencia al contenedor principal
+const malla = [
+  {
+    año: 1,
+    semestres: [
+      {
+        nombre: "I Semestre",
+        ramos: [
+          { id: "procesos", nombre: "Procesos psicológicos", abre: ["social1", "ciclo1"] },
+          { id: "historia", nombre: "Historia de la psicología" },
+        ],
+      },
+      {
+        nombre: "II Semestre",
+        ramos: [
+          { id: "social1", nombre: "Psicología social I", req: ["procesos"] },
+          { id: "ciclo1", nombre: "Ciclo vital I", req: ["procesos"] },
+        ],
+      },
+    ],
+  }
+];
+
 const mallaDiv = document.getElementById("malla");
 
-// Función para guardar en localStorage
 function guardarEstado() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(aprobados)));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...aprobados]));
 }
 
-// Función para cargar estado desde localStorage
 function cargarEstado() {
-  const data = localStorage.getItem(STORAGE_KEY);
-  if (data) {
-    try {
-      const arrayIds = JSON.parse(data);
-      aprobados = new Set(arrayIds);
-    } catch {
-      aprobados = new Set();
-    }
+  const guardado = localStorage.getItem(STORAGE_KEY);
+  if (guardado) {
+    aprobados = new Set(JSON.parse(guardado));
   }
 }
 
-// Crear ramo HTML similar a antes, pero al crear activar si está aprobado
-function crearRamo(ramo) {
-  const div = document.createElement("div");
-  div.classList.add("ramo");
-  div.id = ramo.id;
-
-  // Si el ramo fue aprobado anteriormente, activar
-  if (aprobados.has(ramo.id)) {
-    div.classList.add("activo");
-  } else if (!ramo.req) {
-    // Sin prerequisitos, activo pero botón habilitado
-    div.classList.add("activo");
-  }
-
-  const titulo = document.createElement("h4");
-  titulo.textContent = ramo.nombre;
-  div.appendChild(titulo);
-
-  const btn = document.createElement("button");
-  btn.textContent = "Aprobar";
-
-  // El botón está deshabilitado si ya aprobado o si tiene prerequisitos no cumplidos
-  const deshabilitarBtn =
-    aprobados.has(ramo.id) ||
-    (ramo.req && !ramo.req.every((reqId) => aprobados.has(reqId)));
-
-  btn.disabled = deshabilitarBtn;
-  btn.onclick = () => aprobarRamo(ramo.id);
-  div.appendChild(btn);
-
-  return div;
-}
-
-// Función para aprobar ramo y actualizar estado
-function aprobarRamo(id) {
-  aprobados.add(id);
-  guardarEstado();
-
-  actualizarEstadoUI();
-}
-
-// Función para actualizar la UI según el estado "aprobados"
-function actualizarEstadoUI() {
-  malla.forEach((ano) => {
-    ano.semestres.forEach((semestre) => {
-      semestre.ramos.forEach((r) => {
-        const div = document.getElementById(r.id);
-        if (!div) return;
-
-        const btn = div.querySelector("button");
-
-        if (aprobados.has(r.id)) {
-          div.classList.add("activo");
-          btn.disabled = true;
-        } else {
-          // Revisa si puede activarse (prerequisitos cumplidos)
-          const prereqs = r.req || [];
-          const puedeActivar = prereqs.every((reqId) => aprobados.has(reqId));
-
-          if (puedeActivar && (!r.req || r.req.length === 0)) {
-            div.classList.add("activo");
-          } else {
-            div.classList.remove("activo");
-          }
-
-          btn.disabled = !puedeActivar;
-        }
-      });
-    });
-  });
-}
-
-// Busca ramo por id
 function encontrarRamo(id) {
-  for (const ano of malla) {
-    for (const semestre of ano.semestres) {
-      for (const ramo of semestre.ramos) {
+  for (let año of malla) {
+    for (let semestre of año.semestres) {
+      for (let ramo of semestre.ramos) {
         if (ramo.id === id) return ramo;
       }
     }
@@ -110,48 +47,67 @@ function encontrarRamo(id) {
   return null;
 }
 
-// Renderiza toda la malla curricular
+function aprobarRamo(id) {
+  aprobados.add(id);
+  guardarEstado();
+  actualizarUI();
+}
+
+function crearRamo(ramo) {
+  const div = document.createElement("div");
+  div.className = "ramo";
+  div.id = ramo.id;
+
+  const titulo = document.createElement("h4");
+  titulo.textContent = ramo.nombre;
+  div.appendChild(titulo);
+
+  const boton = document.createElement("button");
+  boton.textContent = "Aprobar";
+  boton.onclick = () => aprobarRamo(ramo.id);
+  div.appendChild(boton);
+
+  div.boton = boton;
+  return div;
+}
+
 function renderMalla() {
   mallaDiv.innerHTML = "";
 
-  malla.forEach((ano) => {
-    const divAno = document.createElement("div");
-    divAno.classList.add("año");
+  malla.forEach((añoObj) => {
+    const divAño = document.createElement("div");
+    divAño.className = "año";
 
-    const h2Ano = document.createElement("h2");
-    h2Ano.textContent = `Año ${ano.año}`;
-    divAno.appendChild(h2Ano);
+    const h2 = document.createElement("h2");
+    h2.textContent = `Año ${añoObj.año}`;
+    divAño.appendChild(h2);
 
-    ano.semestres.forEach((semestre) => {
-      const divSemestre = document.createElement("div");
-      divSemestre.classList.add("semestre");
+    añoObj.semestres.forEach((sem) => {
+      const divSem = document.createElement("div");
+      divSem.className = "semestre";
 
-      const h3Semestre = document.createElement("h3");
-      h3Semestre.textContent = semestre.nombre;
-      divSemestre.appendChild(h3Semestre);
+      const h3 = document.createElement("h3");
+      h3.textContent = sem.nombre;
+      divSem.appendChild(h3);
 
-      const ramosCont = document.createElement("div");
-      ramosCont.classList.add("ramos-container");
+      const cont = document.createElement("div");
+      cont.className = "ramos-container";
 
-      semestre.ramos.forEach((ramo) => {
-        const ramoDiv = crearRamo(ramo);
-        ramosCont.appendChild(ramoDiv);
+      sem.ramos.forEach((ramo) => {
+        const div = crearRamo(ramo);
+        cont.appendChild(div);
       });
 
-      divSemestre.appendChild(ramosCont);
-      divAno.appendChild(divSemestre);
+      divSem.appendChild(cont);
+      divAño.appendChild(divSem);
     });
 
-    mallaDiv.appendChild(divAno);
+    mallaDiv.appendChild(divAño);
   });
-
-  actualizarEstadoUI();
 }
 
-// Inicializar app
-function init() {
-  cargarEstado();
-  renderMalla();
-}
-
-init();
+function actualizarUI() {
+  malla.forEach((año) => {
+    año.semestres.forEach((semestre) => {
+      semestre.ramos.forEach((r) => {
+        const d
