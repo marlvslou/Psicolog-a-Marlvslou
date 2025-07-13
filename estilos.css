@@ -1,57 +1,93 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f3ece7;
-  color: #3e2f2f;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f1eb;
+  color: #4b3b2b;
+  margin: 20px;
 }
 
 h1 {
   text-align: center;
-  color: #5a3d2b;
+  color: #6f4a1e;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 0 #d1bfa7;
 }
 
-.malla-container {
+#malla {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.año {
+  border: 3px solid #a97c50;
+  border-radius: 10px;
+  padding: 20px;
+  background: #e9dccf;
+  box-shadow: 3px 3px 10px #b99c77aa;
+}
+
+.semestre {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 2px solid #a97c50;
+}
+
+.semestre h3 {
+  color: #7b5e2e;
+  margin-bottom: 15px;
+}
+
+.ramos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 15px;
 }
 
 .ramo {
-  background-color: #e0d3c1;
-  border: 2px solid #8b5e3c;
-  border-radius: 10px;
-  padding: 10px;
-  width: 220px;
-  box-shadow: 2px 2px 5px rgba(80, 60, 40, 0.3);
-  position: relative;
-  transition: 0.3s;
-  opacity: 0.4;
+  background-color: #d6c1a9;
+  border: 2px solid #7b5e2e;
+  border-radius: 8px;
+  width: 200px;
+  padding: 12px;
+  box-shadow: 2px 2px 5px #8c6e3a88;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ramo.activo {
   opacity: 1;
-  background-color: #f6e4c5;
+  background-color: #f4e9cf;
+  box-shadow: 2px 2px 10px #a07d3b;
 }
 
-.ramo h3 {
-  margin-top: 0;
+.ramo h4 {
+  margin: 0 0 10px 0;
   font-size: 16px;
+  color: #5a4221;
+  min-height: 48px;
 }
 
 button {
-  margin-top: 10px;
-  background-color: #8b5e3c;
-  color: white;
+  padding: 7px;
   border: none;
   border-radius: 6px;
-  padding: 5px 10px;
+  background-color: #7b5e2e;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
+  transition: background-color 0.25s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #a97c50;
 }
 
 button:disabled {
-  background-color: #cbb09c;
-  cursor: not-allowed;
+  background-color: #c8b89b;
+  cursor: default;
 }
-
