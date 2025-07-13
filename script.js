@@ -1,113 +1,43 @@
-const STORAGE_KEY = "mallaAprobados";
-let aprobados = new Set();
+document.addEventListener("DOMContentLoaded", () => {
+  const botones = document.querySelectorAll(".ramo button");
+  const estado = JSON.parse(localStorage.getItem("estadoRamos")) || {};
 
-const malla = [
-  {
-    año: 1,
-    semestres: [
-      {
-        nombre: "I Semestre",
-        ramos: [
-          { id: "procesos", nombre: "Procesos psicológicos", abre: ["social1", "ciclo1"] },
-          { id: "historia", nombre: "Historia de la psicología" },
-        ],
-      },
-      {
-        nombre: "II Semestre",
-        ramos: [
-          { id: "social1", nombre: "Psicología social I", req: ["procesos"] },
-          { id: "ciclo1", nombre: "Ciclo vital I", req: ["procesos"] },
-        ],
-      },
-    ],
-  }
-];
+  botones.forEach(boton => {
+    const contenedor = boton.parentElement;
+    const id = contenedor.dataset.id;
+    const prer = contenedor.dataset.prer?.split(",") || [];
 
-const mallaDiv = document.getElementById("malla");
+    // Verifica si tiene prerrequisitos no cumplidos
+    const habilitado = prer.every(p => estado[p]);
+    boton.disabled = !habilitado && prer.length > 0;
 
-function guardarEstado() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...aprobados]));
-}
-
-function cargarEstado() {
-  const guardado = localStorage.getItem(STORAGE_KEY);
-  if (guardado) {
-    aprobados = new Set(JSON.parse(guardado));
-  }
-}
-
-function encontrarRamo(id) {
-  for (let año of malla) {
-    for (let semestre of año.semestres) {
-      for (let ramo of semestre.ramos) {
-        if (ramo.id === id) return ramo;
-      }
+    // Marca como aprobado si ya fue guardado
+    if (estado[id]) {
+      boton.classList.add("aprobado");
+      boton.disabled = false;
     }
-  }
-  return null;
-}
 
-function aprobarRamo(id) {
-  aprobados.add(id);
-  guardarEstado();
-  actualizarUI();
-}
-
-function crearRamo(ramo) {
-  const div = document.createElement("div");
-  div.className = "ramo";
-  div.id = ramo.id;
-
-  const titulo = document.createElement("h4");
-  titulo.textContent = ramo.nombre;
-  div.appendChild(titulo);
-
-  const boton = document.createElement("button");
-  boton.textContent = "Aprobar";
-  boton.onclick = () => aprobarRamo(ramo.id);
-  div.appendChild(boton);
-
-  div.boton = boton;
-  return div;
-}
-
-function renderMalla() {
-  mallaDiv.innerHTML = "";
-
-  malla.forEach((añoObj) => {
-    const divAño = document.createElement("div");
-    divAño.className = "año";
-
-    const h2 = document.createElement("h2");
-    h2.textContent = `Año ${añoObj.año}`;
-    divAño.appendChild(h2);
-
-    añoObj.semestres.forEach((sem) => {
-      const divSem = document.createElement("div");
-      divSem.className = "semestre";
-
-      const h3 = document.createElement("h3");
-      h3.textContent = sem.nombre;
-      divSem.appendChild(h3);
-
-      const cont = document.createElement("div");
-      cont.className = "ramos-container";
-
-      sem.ramos.forEach((ramo) => {
-        const div = crearRamo(ramo);
-        cont.appendChild(div);
-      });
-
-      divSem.appendChild(cont);
-      divAño.appendChild(divSem);
+    // Al hacer clic se aprueba y guarda
+    boton.addEventListener("click", () => {
+      estado[id] = true;
+      localStorage.setItem("estadoRamos", JSON.stringify(estado));
+      boton.classList.add("aprobado");
+      boton.disabled = false;
+      actualizarDisponibilidad();
     });
-
-    mallaDiv.appendChild(divAño);
   });
-}
 
-function actualizarUI() {
-  malla.forEach((año) => {
-    año.semestres.forEach((semestre) => {
-      semestre.ramos.forEach((r) => {
-        const d
+  function actualizarDisponibilidad() {
+    botones.forEach(boton => {
+      const contenedor = boton.parentElement;
+      const id = contenedor.dataset.id;
+      const prer = contenedor.dataset.prer?.split(",") || [];
+      const habilitado = prer.every(p => estado[p]);
+      if (!estado[id]) {
+        boton.disabled = !habilitado && prer.length > 0;
+      }
+    });
+  }
+
+  actualizarDisponibilidad();
+});
