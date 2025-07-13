@@ -1,217 +1,154 @@
-// Datos de la malla con relaciones de prerequisitos
-// id único por ramo, para facilitar control
 const ramos = [
-    // Primer año
-    {id: "historia_psicologia", nombre: "Historia de la psicología", año: 1, semestre: 1, prerequisitos: []},
-    {id: "fundamentos_filosoficos", nombre: "Fundamentos filosóficos de la psicología", año: 1, semestre: 1, prerequisitos: []},
-    {id: "procesos_psicologicos", nombre: "Procesos psicológicos", año: 1, semestre: 1, prerequisitos: []},
-    {id: "psicobiologia", nombre: "Psicobiología", año: 1, semestre: 1, prerequisitos: []},
-    {id: "taller_bases_desarrollo", nombre: "Taller de Bases del desarrollo profesional", año: 1, semestre: 1, prerequisitos: []},
-    {id: "electivo_eje_1", nombre: "Electivo eje 1", año: 1, semestre: 1, prerequisitos: []},
+  // 1er Año
+  // I semestre
+  { id: "historia", nombre: "Historia de la psicología", semestre: "1-1", requisitos: [] },
+  { id: "filosofia", nombre: "Fundamentos filosóficos de la psicología", semestre: "1-1", requisitos: [] },
+  { id: "procesos", nombre: "Procesos psicológicos", semestre: "1-1", requisitos: [] },
+  { id: "psicobiologia", nombre: "Psicobiología", semestre: "1-1", requisitos: [] },
+  { id: "taller_bases", nombre: "Taller de Bases del desarrollo profesional", semestre: "1-1", requisitos: [] },
+  { id: "electivo_eje1", nombre: "Electivo eje 1", semestre: "1-1", requisitos: [] },
 
-    {id: "sociologia", nombre: "Sociología", año: 1, semestre: 2, prerequisitos: []},
-    {id: "psicologia_social_I", nombre: "Psicología social I", año: 1, semestre: 2, prerequisitos: ["procesos_psicologicos"]},
-    {id: "ciclo_vital_I", nombre: "Ciclo vital I", año: 1, semestre: 2, prerequisitos: ["procesos_psicologicos"]},
-    {id: "neurociencias", nombre: "Neurociencias", año: 1, semestre: 2, prerequisitos: []},
-    {id: "taller_razonamiento", nombre: "Taller de Razonamiento y argumentacion", año: 1, semestre: 2, prerequisitos: []},
-    {id: "electivo_eje_2", nombre: "Electivo eje 2", año: 1, semestre: 2, prerequisitos: []},
+  // II semestre
+  { id: "sociologia", nombre: "Sociología", semestre: "1-2", requisitos: [] },
+  { id: "psicologia_social_1", nombre: "Psicología social I", semestre: "1-2", requisitos: ["procesos"] },
+  { id: "ciclo_vital_1", nombre: "Ciclo vital I", semestre: "1-2", requisitos: ["procesos"] },
+  { id: "neurociencias", nombre: "Neurociencias", semestre: "1-2", requisitos: [] },
+  { id: "taller_razonamiento", nombre: "Taller de Razonamiento y argumentación", semestre: "1-2", requisitos: [] },
+  { id: "electivo_eje2", nombre: "Electivo eje 2", semestre: "1-2", requisitos: [] },
 
-    // Segundo año
-    {id: "psicologia_social_II", nombre: "Psicología social II", año: 2, semestre: 1, prerequisitos: ["psicologia_social_I"]},
-    {id: "ciclo_vital_II", nombre: "Ciclo vital II", año: 2, semestre: 1, prerequisitos: ["psicologia_social_I", "ciclo_vital_I"]},
-    {id: "paradigmas_metodos", nombre: "Paradigmas y metodos de investigación en psicología", año: 2, semestre: 1, prerequisitos: []},
-    {id: "taller_rel_humanas_I", nombre: "Taller de relaciones humanas I", año: 2, semestre: 1, prerequisitos: []},
-    {id: "electivo_eje_3", nombre: "Electivo eje 3", año: 2, semestre: 1, prerequisitos: []},
-    {id: "electivo_linea_1", nombre: "Electivo línea 1", año: 2, semestre: 1, prerequisitos: []},
+  // 2do Año
+  // I semestre
+  { id: "psicologia_social_2", nombre: "Psicología social II", semestre: "2-1", requisitos: ["psicologia_social_1"] },
+  { id: "ciclo_vital_2", nombre: "Ciclo vital II", semestre: "2-1", requisitos: ["psicologia_social_1", "ciclo_vital_1"] },
+  { id: "paradigmas_metodos", nombre: "Paradigmas y métodos de investigación en psicología", semestre: "2-1", requisitos: [] },
+  { id: "taller_relaciones_1", nombre: "Taller de relaciones humanas I", semestre: "2-1", requisitos: [] },
+  { id: "electivo_eje3", nombre: "Electivo eje 3", semestre: "2-1", requisitos: [] },
+  { id: "electivo_linea_1", nombre: "Electivo línea 1", semestre: "2-1", requisitos: [] },
 
-    {id: "psicologia_personalidad", nombre: "Psicologia de la personalidad", año: 2, semestre: 2, prerequisitos: []},
-    {id: "metodologias_cuantitativas", nombre: "Metodologias cuantitativas para investigación en psicología", año: 2, semestre: 2, prerequisitos: []},
-    {id: "taller_rel_humanas_II", nombre: "Taller de relaciones humanas II", año: 2, semestre: 2, prerequisitos: []},
-    {id: "practica_temprana", nombre: "Práctica Temprana", año: 2, semestre: 2, prerequisitos: ["ciclo_vital_II"]},
-    {id: "metodologias_cualitativas", nombre: "Metodologías cualitativas para la investigación en psicología", año: 2, semestre: 2, prerequisitos: ["metodologias_cuantitativas"]},
-    {id: "electivo_linea_2", nombre: "Electivo línea 2", año: 2, semestre: 2, prerequisitos: []},
+  // II semestre
+  { id: "psicologia_personalidad", nombre: "Psicología de la personalidad", semestre: "2-2", requisitos: [] },
+  { id: "metodologias_cuantitativas", nombre: "Metodologías cuantitativas para investigación", semestre: "2-2", requisitos: ["paradigmas_metodos"] },
+  { id: "taller_relaciones_2", nombre: "Taller de relaciones humanas II", semestre: "2-2", requisitos: ["taller_relaciones_1"] },
+  { id: "practica_temprana", nombre: "Práctica Temprana", semestre: "2-2", requisitos: ["ciclo_vital_2"] },
+  { id: "electivo_linea_2", nombre: "Electivo línea 2", semestre: "2-2", requisitos: [] },
 
-    // Tercer año
-    {id: "psicologia_educacional", nombre: "Psicología educacional", año: 3, semestre: 1, prerequisitos: []},
-    {id: "psicopatologia", nombre: "Psicopatología", año: 3, semestre: 1, prerequisitos: ["metodologias_cualitativas"]},
-    {id: "psicologia_cognitiva", nombre: "Psicología cognitiva", año: 3, semestre: 1, prerequisitos: []},
-    {id: "psicologia_psicoanalitica", nombre: "Psicología psicoanalítica", año: 3, semestre: 1, prerequisitos: []},
-    {id: "taller_psicodiagnostico_eval_cognitiva", nombre: "Taller de psicodiagnóstico y técnicas de evaluación cognitiva", año: 3, semestre: 1, prerequisitos: []},
+  // 3er Año
+  // I semestre
+  { id: "psicologia_educacional", nombre: "Psicología educacional", semestre: "3-1", requisitos: [] },
+  { id: "psicopatologia", nombre: "Psicopatología", semestre: "3-1", requisitos: ["metodologias_cuantitativas", "practica_temprana"] },
+  { id: "psicologia_cognitiva", nombre: "Psicología cognitiva", semestre: "3-1", requisitos: [] },
+  { id: "psicologia_psicoanalitica", nombre: "Psicología psicoanalítica", semestre: "3-1", requisitos: [] },
+  { id: "metodologias_cualitativas", nombre: "Metodologías cualitativas para la investigación en psicología", semestre: "3-1", requisitos: ["metodologias_cuantitativas", "practica_temprana"] },
+  { id: "taller_psicodiagnostico_cognitivo", nombre: "Taller de psicodiagnóstico y técnicas de evaluación cognitiva", semestre: "3-1", requisitos: [] },
 
-    {id: "psicologia_trabajo", nombre: "Psicología del trabajo", año: 3, semestre: 2, prerequisitos: []},
-    {id: "psiquiatria", nombre: "Psiquiatría", año: 3, semestre: 2, prerequisitos: ["psicopatologia", "metodologias_cualitativas"]},
-    {id: "psicologia_sistemica", nombre: "Psicología sistémica", año: 3, semestre: 2, prerequisitos: []},
-    {id: "psicologia_humanista_existencial", nombre: "Psicología humanista existencial", año: 3, semestre: 2, prerequisitos: []},
-    {id: "taller_psicodiagnostico_eval_personalidad", nombre: "Taller de psicodiagnóstico y técnicas de evaluación de la personalidad", año: 3, semestre: 2, prerequisitos: []},
-    {id: "taller_tecnicas_eval_infantil", nombre: "Taller técnicas de evaluación infantil", año: 3, semestre: 2, prerequisitos: []},
+  // II semestre
+  { id: "psicologia_trabajo", nombre: "Psicología del trabajo", semestre: "3-2", requisitos: [] },
+  { id: "psiquiatria", nombre: "Psiquiatría", semestre: "3-2", requisitos: ["psicopatologia", "metodologias_cualitativas"] },
+  { id: "psicologia_sistemica", nombre: "Psicología sistémica", semestre: "3-2", requisitos: [] },
+  { id: "psicologia_humanista", nombre: "Psicología humanista existencial", semestre: "3-2", requisitos: [] },
+  { id: "taller_psicodiagnostico_personalidad", nombre: "Taller de psicodiagnóstico y técnicas de evaluación de la personalidad", semestre: "3-2", requisitos: [] },
+  { id: "taller_evaluacion_infantil", nombre: "Taller técnicas de evaluación infantil", semestre: "3-2", requisitos: [] },
 
-    // Cuarto año
-    {id: "introduccion_psicoterapia", nombre: "Introducción a la psicoterapia", año: 4, semestre: 1, prerequisitos: []},
-    {id: "intervenciones_organizacionales", nombre: "Intervenciones organizacionales", año: 4, semestre: 1, prerequisitos: []},
-    {id: "estrategia_analisis_datos", nombre: "Estrategia de análisis de datos", año: 4, semestre: 1, prerequisitos: []},
-    {id: "optativo_4_1", nombre: "Optativo", año: 4, semestre: 1, prerequisitos: []},
-    {id: "taller_investigacion", nombre: "Taller de investigación", año: 4, semestre: 1, prerequisitos: ["psiquiatria"]},
+  // 4to Año
+  // I semestre
+  { id: "introduccion_psicoterapia", nombre: "Introducción a la psicoterapia", semestre: "4-1", requisitos: [] },
+  { id: "intervenciones_organizacionales", nombre: "Intervenciones organizacionales", semestre: "4-1", requisitos: [] },
+  { id: "estrategia_analisis_datos", nombre: "Estrategia de análisis de datos", semestre: "4-1", requisitos: [] },
+  { id: "optativo_4_1", nombre: "Optativo", semestre: "4-1", requisitos: [] },
+  { id: "taller_investigacion", nombre: "Taller de investigación", semestre: "4-1", requisitos: [] },
 
-    {id: "optativo_4_2", nombre: "Optativo", año: 4, semestre: 2, prerequisitos: []},
-    {id: "optativo_4_3", nombre: "Optativo", año: 4, semestre: 2, prerequisitos: []},
-    {id: "optativo_4_4", nombre: "Optativo", año: 4, semestre: 2, prerequisitos: []},
-    {id: "seminario_de_grado", nombre: "Seminario de grado", año: 4, semestre: 2, prerequisitos: ["taller_investigacion"]},
-    {id: "electivo_linea_3", nombre: "Electivo línea 3", año: 4, semestre: 2, prerequisitos: []},
+  // II semestre
+  { id: "optativo_4_2_1", nombre: "Optativo", semestre: "4-2", requisitos: [] },
+  { id: "optativo_4_2_2", nombre: "Optativo", semestre: "4-2", requisitos: [] },
+  { id: "optativo_4_2_3", nombre: "Optativo", semestre: "4-2", requisitos: [] },
+  { id: "seminario_grado", nombre: "Seminario de grado", semestre: "4-2", requisitos: ["taller_investigacion"] },
+  { id: "electivo_linea_3", nombre: "Electivo línea 3", semestre: "4-2", requisitos: [] },
 
-    // Quinto año
-    {id: "desarrollo_competencias", nombre: "Desarrollo de competencias para la práctica de inserción laboral", año: 5, semestre: 1, prerequisitos: []},
-    {id: "taller_autocuidado", nombre: "Taller de autocuidado y cuidado de equipos", año: 5, semestre: 1, prerequisitos: []},
-    {id: "evaluacion_proyectos", nombre: "Evaluación de proyectos e intervenciones", año: 5, semestre: 1, prerequisitos: ["seminario_de_grado"]},
-    {id: "taller_habilidades_entrevista", nombre: "Taller de habilidades de entrevista", año: 5, semestre: 1, prerequisitos: []},
-    {id: "intervencion_psicosocial", nombre: "Intervención psicosocial para la innovación", año: 5, semestre: 1, prerequisitos: []},
-    {id: "optativo_5_1", nombre: "Optativo", año: 5, semestre: 1, prerequisitos: []},
+  // 5to Año
+  // I semestre
+  { id: "desarrollo_competencias", nombre: "Desarrollo de competencias para la práctica de inserción laboral", semestre: "5-1", requisitos: [] },
+  { id: "taller_autocuidado", nombre: "Taller de autocuidado y cuidado de equipos", semestre: "5-1", requisitos: [] },
+  { id: "evaluacion_proyectos", nombre: "Evaluación de proyectos e intervenciones", semestre: "5-1", requisitos: ["seminario_grado"] },
+  { id: "taller_habilidades_entrevista", nombre: "Taller de habilidades de entrevista", semestre: "5-1", requisitos: [] },
+  { id: "intervencion_psicosocial", nombre: "Intervención psicosocial para la innovación", semestre: "5-1", requisitos: [] },
+  { id: "optativo_5_1", nombre: "Optativo", semestre: "5-1", requisitos: [] },
 
-    {id: "taller_etica_profesional", nombre: "Taller de ética profesional", año: 5, semestre: 2, prerequisitos: []},
-    {id: "practica_profesional", nombre: "Práctica profesional", año: 5, semestre: 2, prerequisitos: ["evaluacion_proyectos"]},
+  // II semestre
+  { id: "taller_etica", nombre: "Taller de ética profesional", semestre: "5-2", requisitos: [] },
+  { id: "practica_profesional", nombre: "Práctica profesional", semestre: "5-2", requisitos: ["evaluacion_proyectos"] }
 ];
 
-// Agrupamos por año y semestre para mostrar
-function agruparPorAñoYSemestre(lista) {
-    const agrupado = {};
-    lista.forEach(ramo => {
-        if (!agrupado[ramo.año]) agrupado[ramo.año] = {};
-        if (!agrupado[ramo.año][ramo.semestre]) agrupado[ramo.año][ramo.semestre] = [];
-        agrupado[ramo.año][ramo.semestre].push(ramo);
-    });
-    return agrupado;
-}
+// Estado guardado en localStorage
+const estado = JSON.parse(localStorage.getItem("estadoRamos")) || {};
 
-// Estado guardado en localStorage (objeto id => true/false)
-let estado = {};
-
-// Guardar estado en localStorage
 function guardarEstado() {
-    localStorage.setItem('malla_estado', JSON.stringify(estado));
+  localStorage.setItem("estadoRamos", JSON.stringify(estado));
 }
 
-// Cargar estado desde localStorage
-function cargarEstado() {
-    const data = localStorage.getItem('malla_estado');
-    if (data) {
-        estado = JSON.parse(data);
-    }
+function sePuedeActivar(ramo) {
+  // Se puede activar si todos sus requisitos están aprobados
+  return ramo.requisitos.every(id => estado[id]);
 }
 
-// Comprueba si los prerequisitos de un ramo están aprobados
-function prerequisitosAprobados(ramo) {
-    if (!ramo.prerequisitos.length) return true; // sin prerequisitos, desbloqueado
-    return ramo.prerequisitos.every(prereqId => estado[prereqId] === true);
-}
+function renderMalla() {
+  const contenedor = document.getElementById("malla");
+  contenedor.innerHTML = "";
 
-// Actualiza visual y botones según estado y prerequisitos
-function actualizarVisual() {
-    ramos.forEach(ramo => {
-        const div = document.getElementById(ramo.id);
-        if (!div) return;
-        const boton = div.querySelector("button");
-        const estadoAprobado = estado[ramo.id] === true;
-        const desbloqueado = prerequisitosAprobados(ramo);
+  // Agrupar por año para mostrar agrupado y semestres dentro
+  const porAño = {};
 
-        if (estadoAprobado) {
-            div.classList.add("desbloqueado");
-            boton.disabled = true;
-            boton.textContent = "Aprobado ✓";
-            if (!div.querySelector(".estado-aprobado")) {
-                const etiqueta = document.createElement("div");
-                etiqueta.className = "estado-aprobado";
-                etiqueta.textContent = "Aprobado";
-                div.appendChild(etiqueta);
-            }
-        } else if (desbloqueado) {
-            div.classList.add("desbloqueado");
-            boton.disabled = false;
-            boton.textContent = "Aprobar ramo";
-            const etiqueta = div.querySelector(".estado-aprobado");
-            if (etiqueta) etiqueta.remove();
-        } else {
-            div.classList.remove("desbloqueado");
-            boton.disabled = true;
-            boton.textContent = "Bloqueado";
-            const etiqueta = div.querySelector(".estado-aprobado");
-            if (etiqueta) etiqueta.remove();
+  ramos.forEach(ramo => {
+    const [año, semestre] = ramo.semestre.split("-");
+    if (!porAño[año]) porAño[año] = {};
+    if (!porAño[año][semestre]) porAño[año][semestre] = [];
+    porAño[año][semestre].push(ramo);
+  });
+
+  Object.keys(porAño).sort((a,b) => a - b).forEach(año => {
+    const añoDiv = document.createElement("div");
+    añoDiv.className = "año";
+    añoDiv.innerHTML = `<h2>${año}° Año</h2>`;
+
+    const semestres = porAño[año];
+
+    Object.keys(semestres).sort().forEach(semestre => {
+      const semestreDiv = document.createElement("div");
+      semestreDiv.className = "semestre";
+      semestreDiv.innerHTML = `<h3>${semestre == "1" ? "I" : "II"} Semestre</h3>`;
+
+      semestres[semestre].forEach(ramo => {
+        const div = document.createElement("div");
+        div.className = "ramo";
+
+        const aprobado = estado[ramo.id];
+        const activable = sePuedeActivar(ramo);
+
+        if (aprobado) {
+          div.classList.add("aprobado");
+        } else if (activable) {
+          div.classList.add("activo");
         }
+
+        div.innerHTML = `
+          <span>${ramo.nombre}</span>
+          <button ${(!activable || aprobado) ? "disabled" : ""}>Se aprueba</button>
+        `;
+
+        const btn = div.querySelector("button");
+        btn.addEventListener("click", () => {
+          estado[ramo.id] = true;
+          guardarEstado();
+          renderMalla();
+        });
+
+        semestreDiv.appendChild(div);
+      });
+
+      añoDiv.appendChild(semestreDiv);
     });
+
+    contenedor.appendChild(añoDiv);
+  });
 }
 
-// Evento cuando aprueban un ramo
-function aprobarRamo(id) {
-    estado[id] = true;
-    guardarEstado();
-    actualizarVisual();
-}
-
-// Construye la malla en el DOM
-function construirMalla() {
-    const contenedor = document.getElementById("malla");
-    const agrupado = agruparPorAñoYSemestre(ramos);
-
-    for (const año of Object.keys(agrupado).sort((a,b)=>a-b)) {
-        const divAño = document.createElement("div");
-        divAño.id = "año-" + año;
-        divAño.className = "año";
-
-        const h2 = document.createElement("h2");
-        h2.textContent = `Año ${año}`;
-        divAño.appendChild(h2);
-
-        const semestres = agrupado[año];
-        for (const semestre of Object.keys(semestres).sort((a,b)=>a-b)) {
-            const divSemestre = document.createElement("div");
-            divSemestre.className = "semestre";
-
-            const h3 = document.createElement("h3");
-            h3.textContent = `Semestre ${semestre}`;
-            divSemestre.appendChild(h3);
-
-            const ramosCont = document.createElement("div");
-            ramosCont.className = "ramos-container";
-
-            semestres[semestre].forEach(ramo => {
-                const divRamo = document.createElement("div");
-                divRamo.className = "ramo";
-                divRamo.id = ramo.id;
-
-                const nombre = document.createElement("div");
-                nombre.className = "nombre";
-                nombre.textContent = ramo.nombre;
-                divRamo.appendChild(nombre);
-
-                if (ramo.prerequisitos.length) {
-                    const info = document.createElement("div");
-                    info.className = "info";
-                    info.textContent = "Requiere: " + ramo.prerequisitos.map(id => {
-                        const r = ramos.find(x => x.id === id);
-                        return r ? r.nombre : id;
-                    }).join(", ");
-                    divRamo.appendChild(info);
-                }
-
-                const btn = document.createElement("button");
-                btn.textContent = "Bloqueado";
-                btn.disabled = true;
-                btn.addEventListener("click", () => aprobarRamo(ramo.id));
-                divRamo.appendChild(btn);
-
-                ramosCont.appendChild(divRamo);
-            });
-
-            divSemestre.appendChild(ramosCont);
-            divAño.appendChild(divSemestre);
-        }
-
-        contenedor.appendChild(divAño);
-    }
-}
-
-function init() {
-    cargarEstado();
-    construirMalla();
-    actualizarVisual();
-}
-
-window.addEventListener("DOMContentLoaded", init);
+renderMalla();
