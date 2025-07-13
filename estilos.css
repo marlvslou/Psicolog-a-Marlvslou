@@ -1,57 +1,123 @@
+/* Tonos cafés */
+:root {
+    --cafe-oscuro: #4b2e05;
+    --cafe-medio: #7c4a12;
+    --cafe-claro: #c59b60;
+    --beige: #f2e6d9;
+    --gris-claro: #f9f5f0;
+    --verde-desbloqueado: #4caf50;
+    --rojo-bloqueado: #b71c1c;
+}
+
 body {
-  background-color: #f4eee3;
-  font-family: 'Segoe UI', sans-serif;
-  color: #3e2f1c;
-  margin: 0;
-  padding: 20px;
+    background: var(--beige);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 20px;
+    color: var(--cafe-oscuro);
 }
 
 h1 {
-  text-align: center;
-  color: #4e342e;
-  margin-bottom: 40px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-section {
-  margin-bottom: 30px;
-  border-left: 6px solid #795548;
-  padding-left: 10px;
+#año {
+    margin-bottom: 40px;
 }
 
-h2 {
-  color: #5d4037;
+#año h2 {
+    background-color: var(--cafe-medio);
+    color: var(--beige);
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.semestre {
+    margin-bottom: 30px;
+}
+
+.semestre h3 {
+    background-color: var(--cafe-claro);
+    color: var(--cafe-oscuro);
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.ramos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 15px;
 }
 
 .ramo {
-  margin: 10px 0;
+    background: var(--gris-claro);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid var(--rojo-bloqueado);
+    transition: border-color 0.3s ease;
+    user-select: none;
+}
+
+.ramo.desbloqueado {
+    border-color: var(--verde-desbloqueado);
+    background: #e6f4ea;
+}
+
+.ramo .nombre {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    min-height: 40px;
+}
+
+.ramo .info {
+    font-size: 0.9em;
+    color: var(--cafe-medio);
+    margin-bottom: 10px;
+    font-style: italic;
 }
 
 .ramo button {
-  background-color: #d7ccc8;
-  border: none;
-  color: #3e2723;
-  padding: 10px 15px;
-  margin: 5px 0;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  transition: 0.3s;
+    align-self: flex-start;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--cafe-medio);
+    color: var(--beige);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    user-select: none;
 }
 
-.ramo button:hover {
-  background-color: #bcaaa4;
+.ramo button:hover:not(:disabled) {
+    background-color: var(--cafe-oscuro);
 }
 
 .ramo button:disabled {
-  background-color: #eee;
-  color: #999;
-  cursor: not-allowed;
-  text-decoration: line-through;
+    background-color: #ccc;
+    cursor: default;
+    color: #666;
 }
 
-.ramo button.aprobado {
-  background-color: #a1887f;
-  color: white;
+.estado-aprobado {
+    color: var(--verde-desbloqueado);
+    font-weight: 700;
+    margin-top: 8px;
+    user-select: none;
+}
+
+footer {
+    margin-top: 60px;
+    font-size: 0.9em;
+    text-align: center;
+    color: var(--cafe-medio);
 }
