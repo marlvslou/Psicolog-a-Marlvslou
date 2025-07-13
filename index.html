@@ -2,12 +2,62 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Malla Interactiva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular Psicología</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <h1>Malla Curricular - Psicología</h1>
-  <div id="malla"></div>
+  <div id="malla-container">
+    <!-- Año y semestre se definen con data attributes -->
+    <!-- Agrega cada ramo con sus requisitos -->
+    <section data-ano="1" data-semestre="1">
+      <h2>Primer Año - I Semestre</h2>
+      <div class="ramo" data-id="historia">
+        <button>Historia de la psicología</button>
+      </div>
+      <div class="ramo" data-id="filosofia">
+        <button>Fundamentos filosóficos de la psicología</button>
+      </div>
+      <div class="ramo" data-id="procesos" data-prer="historia">
+        <button>Procesos psicológicos</button>
+      </div>
+      <div class="ramo" data-id="psicobiologia">
+        <button>Psicobiología</button>
+      </div>
+      <div class="ramo" data-id="taller_desarrollo">
+        <button>Taller de Bases del desarrollo profesional</button>
+      </div>
+      <div class="ramo" data-id="electivo_eje1">
+        <button>Electivo eje 1</button>
+      </div>
+    </section>
+
+    <section data-ano="1" data-semestre="2">
+      <h2>Primer Año - II Semestre</h2>
+      <div class="ramo" data-id="sociologia">
+        <button>Sociología</button>
+      </div>
+      <div class="ramo" data-id="social1" data-prer="procesos">
+        <button>Psicología social I</button>
+      </div>
+      <div class="ramo" data-id="ciclo1" data-prer="procesos">
+        <button>Ciclo vital I</button>
+      </div>
+      <div class="ramo" data-id="neuro">
+        <button>Neurociencias</button>
+      </div>
+      <div class="ramo" data-id="taller_argumentacion">
+        <button>Taller de Razonamiento y argumentación</button>
+      </div>
+      <div class="ramo" data-id="electivo_eje2">
+        <button>Electivo eje 2</button>
+      </div>
+    </section>
+
+    <!-- Continúa con más secciones para cada semestre y año -->
+
+  </div>
 
   <script src="script.js"></script>
 </body>
